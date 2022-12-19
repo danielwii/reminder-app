@@ -1,0 +1,540 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+  query: Query
+}
+
+directive @cacheControl(inheritMaxAge: Boolean, maxAge: Int, scope: CacheControlScope) on OBJECT | FIELD_DEFINITION | INTERFACE | UNION
+
+interface AbstractBaseEntity {
+  createdAt: DateTime!
+  id: Int!
+  updatedAt: DateTime
+}
+
+interface AbstractNameEntity {
+  createdAt: DateTime!
+  description: String
+  id: Int!
+  name: String!
+  updatedAt: DateTime
+}
+
+interface AbstractTimeBasedAuthUser {
+  channel: String
+  createdAt: DateTime!
+  description: String
+  email: String
+  id: ID!
+  isActive: Boolean
+  isBanned: Boolean
+  lastLoginAt: DateTime
+  lastSignedAt: DateTime
+  nickname: String
+  portrait: String
+  updatedAt: DateTime!
+  username: String!
+}
+
+interface AbstractTimeBasedBaseEntity {
+  createdAt: DateTime!
+  id: ID!
+  updatedAt: DateTime!
+}
+
+interface AbstractTimeBasedNameEntity {
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  name: String!
+  updatedAt: DateTime!
+}
+
+interface AbstractTransactionEntity {
+  after: Float!
+  before: Float!
+  change: Float!
+  createdAt: DateTime!
+  extra: JSONObject
+  id: Int!
+  refId: String
+  remark: String
+  type: String!
+  updatedAt: DateTime
+}
+
+interface NoPrimaryKeyBaseEntity {
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+interface Pageable {
+  page: Int!
+  pageIndex: Int!
+  pageNumber: Int!
+  size: Int!
+  total: Int!
+}
+
+type AppInfo implements AbstractBaseEntity & AbstractNameEntity & NoPrimaryKeyBaseEntity {
+  createdAt: DateTime!
+  description: String
+  id: Int!
+  isPublished: Boolean!
+  key: String!
+  mode: Mode!
+  name: String!
+  updatedAt: DateTime
+}
+
+type AppRelease implements AbstractBaseEntity & NoPrimaryKeyBaseEntity {
+  appInfoId: Float
+  buildNumber: Float!
+  createdAt: DateTime!
+  description: String!
+  id: Int!
+  isPublished: Boolean!
+  paths: [String!]!
+  platform: Platform!
+  updatedAt: DateTime
+  upgradeMode: AppUpgradeMode!
+  versionCode: String!
+}
+
+type AppReleasePageable implements Pageable {
+  items: [AppRelease!]
+  page: Int!
+  pageIndex: Int!
+  pageNumber: Int!
+  size: Int!
+  total: Int!
+}
+
+type ContentMedia implements AbstractTimeBasedBaseEntity {
+  content: [String!]!
+  createdAt: DateTime!
+  id: ID!
+  profileId: String
+  type: MediaType!
+  updatedAt: DateTime!
+  useFor: String
+}
+
+type CursorInfo {
+  endCursor: ID
+  hasNextPage: Boolean!
+}
+
+type ExchangeObject implements AbstractBaseEntity & AbstractNameEntity & NoPrimaryKeyBaseEntity {
+  cover: String
+  createdAt: DateTime!
+  description: String
+  id: Int!
+  isPublished: Boolean!
+  key: String!
+  name: String!
+  price: Float!
+  type: ExchangeCurrencyEnum!
+  updatedAt: DateTime
+  usage: String
+  value: String!
+}
+
+type Feedback implements AbstractBaseEntity & NoPrimaryKeyBaseEntity {
+  createdAt: DateTime!
+  description: String
+  id: Int!
+  images: [String!]!
+  name: String
+  profileId: String
+  replies: [FeedbackReply!]!
+  status: FeedbackStatusEnum!
+  type: String
+  updatedAt: DateTime
+}
+
+type FeedbackPageable implements Pageable {
+  items: [Feedback!]!
+  page: Int!
+  pageIndex: Int!
+  pageNumber: Int!
+  size: Int!
+  total: Int!
+}
+
+type FeedbackReply implements AbstractBaseEntity & NoPrimaryKeyBaseEntity {
+  createdAt: DateTime!
+  description: String!
+  id: Int!
+  images: [String!]!
+  refId: String!
+  senderType: FeedbackSenderEnum!
+  updatedAt: DateTime
+}
+
+type FinancialTransaction implements AbstractBaseEntity & AbstractTransactionEntity & NoPrimaryKeyBaseEntity {
+  after: Float!
+  before: Float!
+  change: Float!
+  createdAt: DateTime!
+  extra: JSONObject
+  id: Int!
+  profileId: String
+  refId: String
+  remark: String
+  type: String!
+  updatedAt: DateTime
+}
+
+type FinancialTransactionPageable implements Pageable {
+  items: [FinancialTransaction!]!
+  page: Int!
+  pageIndex: Int!
+  pageNumber: Int!
+  size: Int!
+  total: Int!
+}
+
+type KeyValueModel implements AbstractBaseEntity & NoPrimaryKeyBaseEntity {
+  createdAt: DateTime!
+  description: String
+  formatType: KVModelFormatType
+  id: Int!
+  isPublished: Boolean!
+  name: String!
+  pair: KeyValuePair!
+  pairId: Float
+  updatedAt: DateTime
+}
+
+type KeyValuePair implements AbstractBaseEntity & NoPrimaryKeyBaseEntity {
+  collection: String!
+  createdAt: DateTime!
+  extra: JSONObject!
+  id: Int!
+  key: String!
+  name: String
+  type: KeyValueType!
+  updatedAt: DateTime
+  value: JSON
+}
+
+type MixedNotification {
+  origin: Notification!
+  read: Boolean!
+}
+
+type MixedReminder {
+  origin: Reminder!
+}
+
+type ModelSchemas {
+  internal: Boolean
+  name: String
+  schema: JSON!
+}
+
+type Notification implements AbstractBaseEntity & AbstractNameEntity & NoPrimaryKeyBaseEntity {
+  createdAt: DateTime!
+  description: String
+  id: Int!
+  isPublished: Boolean!
+  name: String!
+  type: NotificationEnum!
+  updatedAt: DateTime
+  usage: String
+}
+
+type OrgRole implements AbstractBaseEntity & NoPrimaryKeyBaseEntity {
+  createdAt: DateTime!
+  description: String!
+  id: Int!
+  name: String!
+  updatedAt: DateTime
+}
+
+type PaymentItem implements AbstractTimeBasedBaseEntity {
+  cover: String!
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  images: JSON!
+  isPublished: Boolean!
+  key: String!
+  name: String!
+  orders: [PaymentOrder!]!
+  price: Float!
+  summary: String!
+  updatedAt: DateTime!
+}
+
+type PaymentMethod implements AbstractTimeBasedBaseEntity {
+  apiKey: String!
+  bodyTmpl: String!
+  createdAt: DateTime!
+  description: String
+  displayName: String!
+  endpoint: String!
+  extra: JSONObject!
+  id: ID!
+  isPublished: Boolean!
+  merchant: String!
+  name: String!
+  privateKey: String!
+  signTmpl: String!
+  updatedAt: DateTime!
+}
+
+type PaymentOrder {
+  amount: Float!
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  profileId: String
+  status: String!
+  transactionId: String!
+  updatedAt: DateTime!
+}
+
+type PointExchange implements AbstractBaseEntity & AbstractTransactionEntity & NoPrimaryKeyBaseEntity {
+  after: Float!
+  before: Float!
+  change: Float!
+  createdAt: DateTime!
+  extra: JSONObject
+  id: Int!
+  profileId: String
+  refId: String
+  remark: String
+  type: String!
+  updatedAt: DateTime
+}
+
+type PointExchangePageable implements Pageable {
+  items: [PointExchange!]!
+  page: Int!
+  pageIndex: Int!
+  pageNumber: Int!
+  size: Int!
+  total: Int!
+}
+
+type Query {
+  admin_user_profile(id: String!): UserProfile!
+  api_content_media(useFor: String!): ContentMedia
+  api_content_medias: [ContentMedia!]!
+  api_exchange_objects(orderBy: SorterInput, type: ExchangeCurrencyEnum, usage: String): [ExchangeObject!]!
+  api_notification(id: ID!): MixedNotification!
+  api_notifications(type: NotificationEnum, usage: String): [MixedNotification!]!
+  api_paged_feedback(pageRequest: PageRequestInput): FeedbackPageable!
+  api_user_relations(type: UserRelationType!): [UserRelation]!
+  app_info(key: String!): AppInfo!
+  app_latest_release(key: String!, platform: String): AppRelease
+  app_releases(key: String!, pageRequest: PageRequestInput): AppReleasePageable!
+  kv(collection: String!, key: String!): KeyValuePair
+  kv_models: [KeyValueModel!]!
+  kvs(collection: String!): [KeyValuePair!]!
+  my_reminders: [MixedReminder!]!
+  sys_model_schemas: [ModelSchemas!]!
+  user_paged_exchange_records(pageRequest: PageRequestInput, refId: String!, type: String): PointExchangePageable!
+  user_paged_financial_transactions(pageRequest: PageRequestInput, refId: String!, type: String!): FinancialTransactionPageable!
+  user_profile: UserProfile!
+}
+
+type Reminder implements AbstractTimeBasedBaseEntity & AbstractTimeBasedNameEntity {
+  createdAt: DateTime!
+  days: Float
+  daysInPeriod: [Int!]
+  description: String
+  endDate: DateTime
+  endTime: String
+  id: ID!
+  interval: Float
+  name: String!
+  notifyAt: DateTime
+  period: RepeatPeriodType
+  profileId: String
+  startDate: DateTime
+  startTime: String
+  type: ReminderType
+  updatedAt: DateTime!
+  visibility: VisibilityType
+}
+
+type UserProfile implements AbstractTimeBasedAuthUser & AbstractTimeBasedBaseEntity {
+  channel: String
+  createdAt: DateTime!
+  description: String
+  email: String
+  id: ID!
+  isActive: Boolean
+  isBanned: Boolean
+  lastLoginAt: DateTime
+  lastSignedAt: DateTime
+  miniAppUserInfo: WXMiniAppUserInfo!
+  nickname: String
+  portrait: String
+  position: JSONObject
+  updatedAt: DateTime!
+  username: String!
+  wallet: Wallet!
+}
+
+type UserRelation implements AbstractTimeBasedBaseEntity {
+  createdAt: DateTime!
+  id: ID!
+  message: String
+  profileId: String
+  requester: UserProfile!
+  type: UserRelationType!
+  updatedAt: DateTime!
+}
+
+type WXMiniAppUserInfo {
+  avatar: String
+  city: String
+  country: String
+  createdAt: DateTime!
+  gender: Float
+  language: String
+  mobile: String
+  nickname: String
+  openId: String!
+  profileId: String!
+  province: String
+  updatedAt: DateTime!
+}
+
+type Wallet implements AbstractBaseEntity & NoPrimaryKeyBaseEntity {
+  available: Float!
+  balance: Float!
+  createdAt: DateTime!
+  frozen: Float!
+  id: Int!
+  points: Float!
+  profile: UserProfile
+  profileId: String
+  totalRecharge: Float!
+  updatedAt: DateTime
+  withdrawals: Float!
+}
+
+enum AppUpgradeMode {
+  FORCE
+  HOT
+  MANUAL
+}
+
+enum CacheControlScope {
+  PRIVATE
+  PUBLIC
+}
+
+enum ExchangeCurrencyEnum {
+  Balance
+  Points
+}
+
+"{\"user\":\"用户\",\"admin\":\"管理员\"}"
+enum FeedbackSenderEnum {
+  admin
+  user
+}
+
+"{\"submitted\":\"已提交\",\"replied\":\"已回复\",\"resolved\":\"已解决\"}"
+enum FeedbackStatusEnum {
+  replied
+  resolved
+  submitted
+}
+
+enum KVModelFormatType {
+  Fields
+  KVGroupFieldsValue
+  LIST
+}
+
+enum KeyValueType {
+  boolean
+  image
+  images
+  json
+  number
+  string
+  text
+  video
+  videos
+}
+
+enum MediaType {
+  images
+  video
+}
+
+enum Mode {
+  STANDALONE
+  WEB_PAGE
+}
+
+"{\"live_float\":\"live 浮动\",\"live_in\":\"live 进入\",\"app_in\":\"进入 app\"}"
+enum NotificationEnum {
+  app_in
+  live_float
+  live_in
+}
+
+enum Order {
+  ASC
+  DESC
+}
+
+enum Platform {
+  ANDROID
+  ANDROID_TV
+  IOS
+}
+
+enum ReminderType {
+  fixed
+  flexible
+}
+
+enum RepeatPeriodType {
+  daily
+  monthly
+  weekly
+  yearly
+}
+
+enum UserRelationType {
+  accepted
+  blocked
+  ignored
+  request
+}
+
+enum VisibilityType {
+  group
+  private
+  public
+}
+
+"Date custom scalar type"
+scalar DateTime
+
+"The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
+scalar JSON
+
+"The `JSONObject` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf)."
+scalar JSONObject
+
+input PageRequestInput {
+  orderBy: SorterInput
+  page: Int! = 0
+  size: Int! = 20
+}
+
+input SorterInput {
+  column: String!
+  order: Order!
+}

@@ -1,0 +1,5 @@
+query loadMyReminders {
+  my_reminders {
+    ...MixedReminderFragment
+  }
+}

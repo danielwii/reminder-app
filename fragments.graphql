@@ -1,0 +1,15 @@
+fragment MixedReminderFragment on MixedReminder {
+  __typename
+  origin {
+    ...ReminderFragment
+  }
+}
+
+fragment ReminderFragment on Reminder {
+  __typename
+  id
+  name
+  description
+  startDate
+  startTime
+}
